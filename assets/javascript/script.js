@@ -15,7 +15,7 @@ var num1 = 0;
 var num2 = 0;
 var num3 = 0;
 var num4 = 0;
-var flag = false;
+var flag = true;
 
 
 
@@ -62,7 +62,7 @@ function youWin(){
 function youLoose(){
   losses++;
 
-  $("#message").text("you win!");
+  $("#message").text("you loose!");
   $("#losses").text(losses);
 }
 
@@ -87,8 +87,13 @@ function renderScreenAndValues(){
   //console.log(randomNumber)
 }
 
+function start(){
+  randomGeneratorForComputer();//onstart
+renderScreenAndValues();//onstart
+}
+
 $("button").on("click",function(){
-        flag = true;
+    if(flag){
       userScore += parseInt($(this).val());
       $("#userScore").text(userScore);
       // if(userScore == randomNumber)
@@ -97,12 +102,21 @@ $("button").on("click",function(){
     youWin();
     flag = false;
     }
-   else if(userScore > randomNumber){
+   if(userScore > randomNumber){
     youLoose();
     flag = false;
   }
+  if(!flag){
+    console.log("HELL");
+    userScore = 0 ;
+    flag = true;
+
+    start();
+    
+  }
+}
 });
 
-randomGeneratorForComputer();//onstart
-renderScreenAndValues();//onstart
+start();
+
 });
